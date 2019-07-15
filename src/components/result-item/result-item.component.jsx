@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import {
   ResultItemStyled,
@@ -11,8 +11,11 @@ const ResultItem = ({ character }) => {
   const { Avatar, ID, Name, Server } = character;
 
   return (
-    <ResultItemStyled key={ID}>
-      <Link to="/" style={{ display: 'inline-flex' }}>
+    <ResultItemStyled>
+      <Link
+        to={{ path: '/', state: { characterID: ID } }}
+        style={{ display: 'inline-flex' }}
+      >
         <img src={Avatar} alt="Avatar" />
       </Link>
       <ResultTextContainer>
@@ -23,4 +26,4 @@ const ResultItem = ({ character }) => {
   );
 };
 
-export default ResultItem;
+export default withRouter(ResultItem);

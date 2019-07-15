@@ -31,5 +31,11 @@ export const CustomButtonStyled = styled.button`
   display: flex;
   justify-content: center;
   border: none;
+  border-radius: 5px;
+  margin-left: 5px;
   ${getButtonStyles}
+
+  @media screen and (max-width: 580px) {
+    margin-top: 0.5rem;
+  }
 `;

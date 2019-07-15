@@ -6,10 +6,27 @@ export const FormSelectStyled = styled.select`
   min-width: 100px;
   font-size: 1rem;
   color: #777777;
+  border: none;
+  border-bottom: 1px solid rgba(37, 68, 166, 0.4);
+  cursor: pointer;
+
+  &:focus {
+    border: none;
+    border-bottom: 1px solid rgba(37, 68, 166, 0.4);
+    outline: none;
+  }
+
+  &:hover {
+    border-bottom: 1px solid rgba(37, 68, 166, 1);
+  }
 
   option {
     color: inherit;
-    line-height: 20px;
+    padding: 2px;
+
+    &:hover {
+      background-color: #2544a6;
+    }
 
     &:nth-of-type(1) {
       color: #000000;
