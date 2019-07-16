@@ -15,7 +15,7 @@ const App = ({ loading }) => (
   <Fragment>
     <Header title="FFXIV Character Search" />
     <Switch>
-      <Route path="/character/:name" component={CharacterDetail} />
+      <Route path="/character/:id" component={CharacterDetail} />
       <Route
         exact
         path="/"
