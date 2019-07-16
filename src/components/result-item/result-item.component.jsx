@@ -1,5 +1,8 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { getCharacterDetails } from '../../redux/character-detail/character-detail.actions';
 
 import {
   ResultItemStyled,
@@ -7,23 +10,36 @@ import {
   ResultItemLink,
 } from './result-item.styles';
 
-const ResultItem = ({ character }) => {
+const ResultItem = ({ character, getCharacterDetails, characterDetails, history }) => {
   const { Avatar, ID, Name, Server } = character;
+  const name = Name.replace(' ', '_').toLowerCase();
+
+  const pushCharacterID = async () => {
+    await getCharacterDetails(ID);
+
+    history.push(`/character/${name}`);
+  };
 
   return (
-    <ResultItemStyled>
-      <Link
-        to={{ path: '/', state: { characterID: ID } }}
-        style={{ display: 'inline-flex' }}
-      >
-        <img src={Avatar} alt="Avatar" />
-      </Link>
+    <ResultItemStyled onClick={pushCharacterID}>
+      <img src={Avatar} alt="Avatar" />
       <ResultTextContainer>
         <ResultItemLink to="/">{Name}</ResultItemLink>
-        <p style={{ marginTop: '20px' }}>{Server}</p>
+        <p>{Server}</p>
       </ResultTextContainer>
     </ResultItemStyled>
   );
 };
 
-export default withRouter(ResultItem);
+const mapStateToProps = ({ characterDetails }) => ({ characterDetails });
+
+const mapDispatchToProps = dispatch => ({
+  getCharacterDetails: id => dispatch(getCharacterDetails(id)),
+});
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(ResultItem)
+);
