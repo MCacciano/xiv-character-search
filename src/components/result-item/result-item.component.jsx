@@ -12,7 +12,7 @@ import {
 
 const ResultItem = ({ character, getCharacterDetails, characterDetails, history }) => {
   const { Avatar, ID, Name, Server } = character;
-  const name = Name.replace(' ', '_').toLowerCase();
+  const name = Name.replace(/[']+/g, '').replace(' ', '_').toLowerCase();
 
   const pushCharacterID = async () => {
     await getCharacterDetails(ID);
