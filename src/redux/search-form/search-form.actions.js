@@ -1,14 +1,15 @@
 import {
   SEARCH_CHARACTER,
   GET_SERVER_LIST,
-  IS_LOADING,
+  IS_LOADING
 } from './search-form.types';
 
 import xivapi from '../../axios/xivapi';
 
 export const searchCharacter = (
   characterName = '',
-  serverName = ''
+  serverName = '',
+  page = 1
 ) => async dispatch => {
   if (!characterName) {
     console.error(
@@ -23,13 +24,16 @@ export const searchCharacter = (
 
   try {
     const res = await xivapi.get(
-      `/character/search?name=${characterName}&server=${serverName}`
+      `/character/search?name=${characterName}&server=${serverName}&page=${page}`
     );
     const searchResults = res.data;
 
     dispatch({
       type: SEARCH_CHARACTER,
-      payload: searchResults,
+      payload: {
+        searchResults,
+        characterName
+      }
     });
   } catch (err) {
     console.error(err);
@@ -43,7 +47,7 @@ export const getServerList = () => async dispatch => {
 
     dispatch({
       type: GET_SERVER_LIST,
-      payload: serverList,
+      payload: serverList
     });
   } catch (err) {
     console.error(err);
@@ -53,6 +57,6 @@ export const getServerList = () => async dispatch => {
 export const isLoading = (loadingFlag = false) => {
   return {
     type: IS_LOADING,
-    payload: loadingFlag,
+    payload: loadingFlag
   };
 };

@@ -1,31 +1,34 @@
 import {
   SEARCH_CHARACTER,
   GET_SERVER_LIST,
-  IS_LOADING,
+  IS_LOADING
 } from './search-form.types';
 
 const initialState = {
-  loading: false,
+  loading: false
 };
 
 const searchFormReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case SEARCH_CHARACTER:
+      console.log(payload);
       return {
         ...state,
-        characters: payload.Results,
+        characters: payload.searchResults.Results,
+        pagination: payload.searchResults.Pagination,
         loading: false,
+        characterName: payload.characterName
       };
     case GET_SERVER_LIST:
       return {
         ...state,
         servers: payload,
-        loading: false,
+        loading: false
       };
     case IS_LOADING:
       return {
         ...state,
-        loading: payload,
+        loading: payload
       };
     default:
       return state;

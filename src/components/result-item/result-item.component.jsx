@@ -13,9 +13,12 @@ import {
 const ResultItem = ({ character, getCharacterDetails, characterDetails, history }) => {
   const { Avatar, ID, Name, Server } = character;
   const pushCharacterID = async () => {
-    await getCharacterDetails(ID);
+    // await getCharacterDetails(ID);
 
-    history.push(`/character/${ID}`);
+    history.push({
+      pathname: `/character/${ID}`,
+      state: { ID }
+    });
   };
 
   return (

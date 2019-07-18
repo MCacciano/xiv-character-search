@@ -1,13 +1,43 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-// import { CharacterDetailStyled } from './character-detail.styles';
+import {
+  CharacterDetailStyled,
+  PortraitContainer,
+  PortraitStyled,
+  GearOverviewContainer
+} from './character-detail.styles';
+import { getCharacterDetails } from '../../redux/character-detail/character-detail.actions';
 
-const CharacterDetail = props => {
-  console.log(props);
-  return <div>{props.characterDetails.Character.Name}</div>
+const CharacterDetail = ({ getCharacterDetails, characterDetails, location: { state } }) => {
+  const { ID } = state;
+
+  useEffect(() => {
+    (async () => {
+      await getCharacterDetails(ID);
+    })()
+  }, []);
+
+  if (characterDetails.Character) {
+    const { Portrait, Name } = characterDetails.Character;
+
+    return (
+      <CharacterDetailStyled>
+        {/* ! this is temporary until pagination gets figured out */}
+        <h2 style={{ width: '100%', textAlign: 'center' }}>{Name}</h2>
+        <GearOverviewContainer>
+          <PortraitStyled src={Portrait} alt='portrait' />
+        </GearOverviewContainer>
+      </CharacterDetailStyled>
+    )
+  } else {
+    return <div>Loading...</div>
+  }
 }
 
 const mapStateToProps = ({ characterDetails }) => ({ characterDetails });
+const mapDispatchToProps = dispatch => ({
+  getCharacterDetails: id => dispatch(getCharacterDetails(id)),
+});
 
-export default connect(mapStateToProps)(CharacterDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(CharacterDetail);

@@ -6,7 +6,9 @@ export const ResultListStyled = styled.ul`
   grid-template-columns: repeat(auto-fit, 300px);
   justify-content: space-around;
   grid-gap: 1rem;
-  margin: 50px 0;
+  margin: 50px 0 0 0;
+  max-height: 70vh;
+  overflow-y: scroll;
 
   list-style: none;
 `;
