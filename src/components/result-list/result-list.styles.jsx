@@ -8,7 +8,7 @@ export const ResultListStyled = styled.ul`
   grid-gap: 1rem;
   margin: 50px 0 0 0;
   max-height: 70vh;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   list-style: none;
 `;
