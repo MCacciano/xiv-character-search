@@ -48,7 +48,7 @@ class Paginator extends Component {
       }
     } else {
       pagesArr.push(
-        <PageStyled key={1} page={1} onClick={this.setActivePage}>
+        <PageStyled key={1} page={1} onClick={this.setActivePage} isActive>
           1
         </PageStyled>
       );
