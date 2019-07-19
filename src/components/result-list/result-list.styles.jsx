@@ -7,7 +7,7 @@ export const ResultListStyled = styled.ul`
   justify-content: space-around;
   grid-gap: 1rem;
   margin: 50px 0 0 0;
-  max-height: 70vh;
+  max-height: 72vh;
   overflow-y: auto;
 
   list-style: none;
