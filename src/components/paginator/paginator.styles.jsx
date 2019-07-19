@@ -5,6 +5,12 @@ const EndPageCss = css`
   padding: 10px 15px;
 `;
 
+const ActiveEndPage = css`
+  ${EndPageCss}
+  color: #ffffff;
+  background: #3a4fad;
+`;
+
 const InnerPageCss = css`
   border: thin solid #000000;
   padding: 5px 15px;
@@ -18,7 +24,9 @@ const ActivePageCss = css`
 `;
 
 const getPageStyles = ({ endPage, isActive }) => {
-  if (endPage) {
+  if (endPage && isActive) {
+    return ActiveEndPage;
+  } else if (endPage) {
     return EndPageCss;
   } else if (isActive) {
     return ActivePageCss;

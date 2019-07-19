@@ -11,7 +11,7 @@ import { PaginatorStyled, PageStyled } from './paginator.styles';
 class Paginator extends Component {
   state = {
     paginationData: this.props.paginationData,
-    isActive: false
+    activePage: 1
   };
 
   componentDidMount() {
@@ -40,7 +40,7 @@ class Paginator extends Component {
             key={i}
             page={i}
             onClick={this.setActivePage}
-            isActive={this.state.isActive}
+            isActive={i === Page ? true : false}
           >
             {i}
           </PageStyled>
@@ -48,7 +48,7 @@ class Paginator extends Component {
       }
     } else {
       pagesArr.push(
-        <PageStyled key={1} page={1} onClick={this.setActivePage} isActive>
+        <PageStyled key={1} page={1} onClick={this.setActivePage}>
           1
         </PageStyled>
       );
@@ -57,26 +57,20 @@ class Paginator extends Component {
     const rightBound =
       PageTotal >= 6 ? PageTotal - (PageTotal - 5) : PageTotal - 1;
 
-    const innerPages = pagesArr.length > 1 ? pagesArr.slice(1, rightBound) : [];
+    // const innerPages = pagesArr.length > 1 ? pagesArr.slice(1, rightBound) : [];
 
-    const activePage = pagesArr.filter(page => page.props.page == Page)[0];
+    // const activePage = pagesArr.filter(page => page.props.page == Page)[0];
 
-    // pagesArr.forEach((page, i) => {
-    //   if (page.props.page === Page) {
-    //     pagesArr.splice(
-    //       i,
-    //       1,
-    //       <PageStyled key={i} page={i} onClick={this.setActivePage} isActive />
-    //     );
-    //   }
-    // });
-
-    return innerPages;
+    // return pagesArr.length > 1 && pagesArr.slice(Page, Page + 4);
+    return pagesArr;
   }
 
   setActivePage = e => {
-    console.log(e.target.props);
+    let activePage = parseInt(e.target.textContent);
+    this.setState({ activePage });
+
     this.props.isLoading(true);
+
     this.props.searchCharacter(
       this.props.characterName,
       '',
@@ -85,28 +79,27 @@ class Paginator extends Component {
   };
 
   render() {
-    console.log(this.state);
     return (
       <PaginatorStyled>
-        <PageStyled
+        {/* <PageStyled
           onClick={this.setActivePage}
-          isActive={this.state.isActive}
+          isActive={this.props.paginationData.Page === 1}
           page={1}
           endPage
         >
           1
-        </PageStyled>
+        </PageStyled> */}
         {this.buildPagination()}
-        {this.props.paginationData.PageTotal > 1 ? (
+        {/* {this.props.paginationData.PageTotal > 1 && (
           <PageStyled
             onClick={this.setActivePage}
-            isActive={this.state.isActive}
+            isActive={false}
             page={this.props.paginationData.PageTotal}
             endPage
           >
             {this.props.paginationData.PageTotal}
           </PageStyled>
-        ) : null}
+        )} */}
       </PaginatorStyled>
     );
   }
