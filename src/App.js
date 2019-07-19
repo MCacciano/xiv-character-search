@@ -46,9 +46,7 @@ class App extends React.Component {
                     loading={this.props.loading}
                     paginationData={this.props.pagination}
                   />
-                ) : (
-                  <div>loading</div>
-                )}
+                ) : null}
               </Layout>
             )}
           />
