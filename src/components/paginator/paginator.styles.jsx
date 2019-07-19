@@ -31,8 +31,11 @@ export const PaginatorStyled = styled.ul`
   justify-content: center;
   align-items: center;
   list-style: none;
-  width: 100%;
+  width: 90%;
   height: 10vh;
+  margin: 0;
+  position: absolute;
+  bottom: 0;
 `;
 
 export const PageStyled = styled.li`

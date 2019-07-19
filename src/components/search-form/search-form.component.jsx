@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {
   searchCharacter,
   getServerList,
-  isLoading,
+  isLoading
 } from '../../redux/search-form/search-form.actions';
 
 import SearchContainer from '../search-container/search-container.component';
@@ -17,7 +17,7 @@ import { SearchFormStyled } from './search-form.styles';
 class SearchForm extends Component {
   state = {
     characterName: '',
-    characterServer: '',
+    characterServer: ''
   };
 
   componentDidMount() {
@@ -40,14 +40,12 @@ class SearchForm extends Component {
   };
 
   render() {
-    const { servers } = this.props.search;
-
     return (
       <SearchFormStyled onSubmit={this.onFormSubmit}>
         <FormSelect
           name="characterServer"
           onChange={this.onInputChange}
-          options={servers}
+          options={this.props.servers}
           useOptions
         />
         <SearchContainer>
@@ -66,18 +64,14 @@ class SearchForm extends Component {
   }
 }
 
-const mapStateToProps = ({ search }) => ({
-  search,
-});
-
 const mapDispatchToProps = dispatch => ({
   isLoading: loadingFlag => dispatch(isLoading(loadingFlag)),
   getServerList: () => dispatch(getServerList()),
   searchCharacter: (characterName, characterServer) =>
-    dispatch(searchCharacter(characterName, characterServer)),
+    dispatch(searchCharacter(characterName, characterServer))
 });
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(SearchForm);

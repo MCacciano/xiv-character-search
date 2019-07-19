@@ -11,13 +11,14 @@ import { PaginatorStyled, PageStyled } from './paginator.styles';
 class Paginator extends Component {
   state = {
     paginationData: this.props.paginationData,
-    activePage: 1,
     isActive: false
   };
 
   componentDidMount() {
-    this.buildPagination();
+    this.props.paginationData && this.buildPagination();
   }
+
+  componentWillUnmount() {}
 
   buildPagination() {
     const {
@@ -28,7 +29,7 @@ class Paginator extends Component {
       Results,
       ResultsPerPage,
       ResultsTotal
-    } = this.state.paginationData;
+    } = this.props.paginationData;
 
     let pagesArr = [];
 
@@ -56,22 +57,30 @@ class Paginator extends Component {
     const rightBound =
       PageTotal >= 6 ? PageTotal - (PageTotal - 5) : PageTotal - 1;
 
-    const innerPages =
-      pagesArr.length > 1
-        ? pagesArr.slice(this.state.activePage, rightBound)
-        : [];
+    const innerPages = pagesArr.length > 1 ? pagesArr.slice(1, rightBound) : [];
 
-    return innerPages.map(page => page);
+    const activePage = pagesArr.filter(page => page.props.page == Page)[0];
+
+    // pagesArr.forEach((page, i) => {
+    //   if (page.props.page === Page) {
+    //     pagesArr.splice(
+    //       i,
+    //       1,
+    //       <PageStyled key={i} page={i} onClick={this.setActivePage} isActive />
+    //     );
+    //   }
+    // });
+
+    return innerPages;
   }
 
   setActivePage = e => {
-    console.log(e.target);
-    this.setState({ activePage: parseInt(e.target.textContent) });
+    console.log(e.target.props);
     this.props.isLoading(true);
     this.props.searchCharacter(
       this.props.characterName,
       '',
-      parseInt(e.target.textContent)
+      e.target.textContent
     );
   };
 
@@ -88,24 +97,21 @@ class Paginator extends Component {
           1
         </PageStyled>
         {this.buildPagination()}
-        {this.state.paginationData.PageTotal > 1 ? (
+        {this.props.paginationData.PageTotal > 1 ? (
           <PageStyled
             onClick={this.setActivePage}
             isActive={this.state.isActive}
-            page={this.state.paginationData.PageTotal}
+            page={this.props.paginationData.PageTotal}
             endPage
           >
-            {this.state.paginationData.PageTotal}
+            {this.props.paginationData.PageTotal}
           </PageStyled>
         ) : null}
       </PaginatorStyled>
     );
   }
 }
-const mapStateToProps = ({ search: { characterName, loading } }) => ({
-  characterName,
-  loading
-});
+
 const mapDispatchToProps = dispatch => ({
   searchCharacter: (name, server, page) =>
     dispatch(searchCharacter(name, server, page)),
@@ -113,6 +119,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(Paginator);

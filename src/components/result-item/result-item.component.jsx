@@ -7,10 +7,15 @@ import { getCharacterDetails } from '../../redux/character-detail/character-deta
 import {
   ResultItemStyled,
   ResultTextContainer,
-  ResultItemLink,
+  ResultItemLink
 } from './result-item.styles';
 
-const ResultItem = ({ character, getCharacterDetails, characterDetails, history }) => {
+const ResultItem = ({
+  character,
+  getCharacterDetails,
+  characterDetails,
+  history
+}) => {
   const { Avatar, ID, Name, Server } = character;
   const pushCharacterID = async () => {
     // await getCharacterDetails(ID);
@@ -32,15 +37,13 @@ const ResultItem = ({ character, getCharacterDetails, characterDetails, history 
   );
 };
 
-const mapStateToProps = ({ characterDetails }) => ({ characterDetails });
-
 const mapDispatchToProps = dispatch => ({
-  getCharacterDetails: id => dispatch(getCharacterDetails(id)),
+  getCharacterDetails: id => dispatch(getCharacterDetails(id))
 });
 
 export default withRouter(
   connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
   )(ResultItem)
 );

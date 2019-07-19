@@ -4,16 +4,19 @@ import { connect } from 'react-redux';
 import { searchCharacter } from '../../redux/search-form/search-form.actions';
 
 import ResultItem from '../result-item/result-item.component';
-import Paginator from '../paginator/paginator.component';
 
 import { ResultListStyled } from './result-list.styles';
 
-const ResultList = ({ searchCharacter, characters, pagination }) => {
+const ResultList = ({ characters, characterDetails }) => {
   const renderResults = () => {
     return (
       characters &&
-      characters.map((character, i) => (
-        <ResultItem key={character.ID} character={character} />
+      characters.map(character => (
+        <ResultItem
+          key={character.ID}
+          character={character}
+          characterDetails={characterDetails}
+        />
       ))
     );
   };
@@ -21,15 +24,9 @@ const ResultList = ({ searchCharacter, characters, pagination }) => {
   return (
     <React.Fragment>
       <ResultListStyled>{renderResults()}</ResultListStyled>
-      {characters && <Paginator paginationData={pagination} />}
     </React.Fragment>
   );
 };
-
-const mapStateToProps = ({ search: { characters, pagination } }) => ({
-  characters,
-  pagination
-});
 
 const mapDispatchToProps = dispatch => ({
   searchCharacter: (name, server, page) =>
@@ -37,6 +34,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(ResultList);
