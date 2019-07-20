@@ -10,6 +10,11 @@ import WithSpinner from './components/with-spinner/with-spinner.component';
 import CharacterDetail from './components/character-detail/character-detail.component';
 import Paginator from './components/paginator/paginator.component';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faAngleRight, faAngleLeft);
+
 const ResultListWithSpinner = WithSpinner(ResultList);
 
 class App extends React.Component {

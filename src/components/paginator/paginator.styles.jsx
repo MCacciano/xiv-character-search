@@ -2,7 +2,9 @@ import styled, { css } from 'styled-components';
 
 const EndPageCss = css`
   border: thin solid #3a4fad;
-  padding: 10px 15px;
+  padding: 4px 10px;
+  margin: 0 5px;
+  transform: scale(0.8);
 `;
 
 const ActiveEndPage = css`

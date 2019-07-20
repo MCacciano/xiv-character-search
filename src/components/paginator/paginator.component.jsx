@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon as FA } from '@fortawesome/react-fontawesome';
 
 import {
   searchCharacter,
@@ -65,41 +66,64 @@ class Paginator extends Component {
     return pagesArr;
   }
 
+  getProps = () => ({ ...this.props });
+
   setActivePage = e => {
-    let activePage = parseInt(e.target.textContent);
-    this.setState({ activePage });
+    // let activePage = parseInt(e.target.textContent);
+    // this.setState({ activePage });
+
+    const { PagePrev, PageNext } = this.props.paginationData;
 
     this.props.isLoading(true);
 
-    this.props.searchCharacter(
-      this.props.characterName,
-      '',
-      e.target.textContent
-    );
+    let page =
+      this.getProps().prev && PagePrev
+        ? PagePrev
+        : this.getProps().next && PageNext
+        ? PageNext
+        : 1;
+
+    this.props.searchCharacter(this.props.characterName, '', page);
   };
 
   render() {
+    const { Page, PageTotal } = this.props.paginationData;
+    console.log(Page);
     return (
       <PaginatorStyled>
-        {/* <PageStyled
-          onClick={this.setActivePage}
-          isActive={this.props.paginationData.Page === 1}
-          page={1}
-          endPage
-        >
+        <PageStyled onClick={this.setActivePage} page={1} endPage>
           1
-        </PageStyled> */}
-        {this.buildPagination()}
-        {/* {this.props.paginationData.PageTotal > 1 && (
-          <PageStyled
-            onClick={this.setActivePage}
-            isActive={false}
-            page={this.props.paginationData.PageTotal}
-            endPage
-          >
-            {this.props.paginationData.PageTotal}
+        </PageStyled>
+        <FA
+          prev={true}
+          icon={['fa', 'angle-left']}
+          style={{
+            fontSize: '25px',
+            cursor: 'pointer',
+            margin: '0 .5rem',
+            color: '#3a4fad'
+          }}
+          onClick={this.setActivePage}
+        />
+        <PageStyled page={Page} isActive>
+          {Page}
+        </PageStyled>
+        <FA
+          next={true}
+          icon={['fa', 'angle-right']}
+          style={{
+            fontSize: '25px',
+            cursor: 'pointer',
+            margin: '0 .5rem',
+            color: '#3a4fad'
+          }}
+          onClick={this.setActivePage}
+        />
+        {PageTotal > 1 && (
+          <PageStyled onClick={this.setActivePage} page={PageTotal} endPage>
+            {PageTotal}
           </PageStyled>
-        )} */}
+        )}
       </PaginatorStyled>
     );
   }

@@ -8,6 +8,7 @@ export const ResultItemStyled = styled.li`
   border-radius: 5px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
   cursor: pointer;
+  text-align: center;
 
   &:hover {
     box-shadow: 2px 2px 5px #2544a6;
