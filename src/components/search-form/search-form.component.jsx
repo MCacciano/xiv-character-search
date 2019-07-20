@@ -64,6 +64,10 @@ class SearchForm extends Component {
   }
 }
 
+const mapStateToProps = ({ search: { servers } }) => ({
+  servers
+});
+
 const mapDispatchToProps = dispatch => ({
   isLoading: loadingFlag => dispatch(isLoading(loadingFlag)),
   getServerList: () => dispatch(getServerList()),
@@ -72,6 +76,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SearchForm);

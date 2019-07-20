@@ -1,14 +1,22 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const HeaderStyled = styled(Link)`
-  display: flex;
+export const HeaderStyled = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
   height: 7vh;
-  color: #ffffff;
   justify-content: center;
   align-items: center;
-  background-color: #2544a6;
+  white-space: nowrap;
+  /* background-color: #2544a6; */
+`;
+
+export const BrandStyled = styled(Link)`
+  grid-column: 1 / 2;
   font-weight: bolder;
   font-size: 1.5rem;
+  justify-self: center;
+  color: #2544a6;
   text-decoration: none;
 `;

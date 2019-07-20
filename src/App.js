@@ -4,7 +4,6 @@ import { Switch, Route } from 'react-router-dom';
 
 import Layout from './components/layout/layout.component';
 import Header from './components/header/header.component';
-import SearchForm from './components/search-form/search-form.component';
 import ResultList from './components/result-list/result-list.component';
 import WithSpinner from './components/with-spinner/with-spinner.component';
 import CharacterDetail from './components/character-detail/character-detail.component';
@@ -39,7 +38,6 @@ class App extends React.Component {
             path="/"
             render={() => (
               <Layout>
-                <SearchForm servers={this.props.servers} />
                 <ResultListWithSpinner
                   characters={this.props.characters}
                   loading={this.props.loading}

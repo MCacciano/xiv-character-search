@@ -1,6 +1,13 @@
 import React from 'react';
 
-import { HeaderStyled } from './header.styles';
+import SearchForm from '../search-form/search-form.component';
 
-const Header = ({ title }) => <HeaderStyled to={'/'}>{title}</HeaderStyled>;
+import { HeaderStyled, BrandStyled } from './header.styles';
+
+const Header = ({ title }) => (
+  <HeaderStyled>
+    <BrandStyled to={'/'}>{title}</BrandStyled>
+    <SearchForm />
+  </HeaderStyled>
+);
 export default Header;

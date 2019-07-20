@@ -2,8 +2,10 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const ResultItemStyled = styled.li`
-  display: grid;
-  grid-template-columns: max-content 1fr;
+  display: flex;
+  flex-direction: column;
+  /* display: grid;
+  grid-template-columns: max-content 1fr; */
   border: 1px solid #2544a6;
   border-radius: 5px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
@@ -21,6 +23,7 @@ export const ResultTextContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-size: 0.8rem;
 `;
 
 export const ResultItemLink = styled.h3`

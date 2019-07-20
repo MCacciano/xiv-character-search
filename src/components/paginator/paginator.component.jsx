@@ -55,47 +55,24 @@ class Paginator extends Component {
       );
     }
 
-    const rightBound =
-      PageTotal >= 6 ? PageTotal - (PageTotal - 5) : PageTotal - 1;
-
-    // const innerPages = pagesArr.length > 1 ? pagesArr.slice(1, rightBound) : [];
-
-    // const activePage = pagesArr.filter(page => page.props.page == Page)[0];
-
-    // return pagesArr.length > 1 && pagesArr.slice(Page, Page + 4);
     return pagesArr;
   }
 
-  getProps = () => ({ ...this.props });
-
-  setActivePage = e => {
-    // let activePage = parseInt(e.target.textContent);
-    // this.setState({ activePage });
-
-    const { PagePrev, PageNext } = this.props.paginationData;
-
+  getPage = page => {
     this.props.isLoading(true);
-
-    let page =
-      this.getProps().prev && PagePrev
-        ? PagePrev
-        : this.getProps().next && PageNext
-        ? PageNext
-        : 1;
 
     this.props.searchCharacter(this.props.characterName, '', page);
   };
 
   render() {
-    const { Page, PageTotal } = this.props.paginationData;
+    const { Page, PageTotal, PagePrev, PageNext } = this.props.paginationData;
     console.log(Page);
     return (
       <PaginatorStyled>
-        <PageStyled onClick={this.setActivePage} page={1} endPage>
+        <PageStyled onClick={() => this.getPage(1)} page={1} endPage>
           1
         </PageStyled>
         <FA
-          prev={true}
           icon={['fa', 'angle-left']}
           style={{
             fontSize: '25px',
@@ -103,13 +80,14 @@ class Paginator extends Component {
             margin: '0 .5rem',
             color: '#3a4fad'
           }}
-          onClick={this.setActivePage}
+          onClick={PagePrev ? () => this.getPage(PagePrev) : null}
         />
+        {PagePrev ? <PageStyled page={PagePrev}>{PagePrev}</PageStyled> : null}
         <PageStyled page={Page} isActive>
           {Page}
         </PageStyled>
+        {PageNext ? <PageStyled page={PageNext}>{PageNext}</PageStyled> : null}
         <FA
-          next={true}
           icon={['fa', 'angle-right']}
           style={{
             fontSize: '25px',
@@ -117,10 +95,14 @@ class Paginator extends Component {
             margin: '0 .5rem',
             color: '#3a4fad'
           }}
-          onClick={this.setActivePage}
+          onClick={PageNext ? () => this.getPage(PageNext) : null}
         />
         {PageTotal > 1 && (
-          <PageStyled onClick={this.setActivePage} page={PageTotal} endPage>
+          <PageStyled
+            onClick={() => this.getPage(PageTotal)}
+            page={PageTotal}
+            endPage
+          >
             {PageTotal}
           </PageStyled>
         )}
