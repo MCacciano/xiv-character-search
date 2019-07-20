@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import {
@@ -27,6 +28,7 @@ class SearchForm extends Component {
 
   onFormSubmit = e => {
     e.preventDefault();
+    this.props.history.push('/');
 
     const { characterName, characterServer } = this.state;
 
@@ -75,7 +77,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(searchCharacter(characterName, characterServer))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SearchForm);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(SearchForm)
+);
