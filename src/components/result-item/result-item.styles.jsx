@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const ResultItemStyled = styled.li`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   /* display: grid;
   grid-template-columns: max-content 1fr; */
   border: 1px solid #2544a6;
@@ -24,6 +24,7 @@ export const ResultTextContainer = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 0.8rem;
+  width: 100%;
 `;
 
 export const ResultItemLink = styled.h3`
