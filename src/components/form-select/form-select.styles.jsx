@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const FormSelectStyled = styled.select`
   height: 40px;
@@ -6,8 +6,9 @@ export const FormSelectStyled = styled.select`
   min-width: 100px;
   font-size: 1rem;
   color: #777777;
-  border: none;
-  border-bottom: 1px solid rgba(37, 68, 166, 0.4);
+  /* border: none; */
+  /* border-bottom: 1px solid rgba(37, 68, 166, 0.4); */
+
   cursor: pointer;
 
   &:focus {
@@ -17,7 +18,7 @@ export const FormSelectStyled = styled.select`
   }
 
   &:hover {
-    border-bottom: 1px solid rgba(37, 68, 166, 1);
+    border: 1px solid rgba(37, 68, 166, 1);
   }
 
   option {
