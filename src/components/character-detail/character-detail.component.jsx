@@ -1,11 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+
+import Gear from '../gear-item/gear-item.component';
 
 import {
   CharacterDetailStyled,
   PortraitContainer,
   PortraitStyled,
-  GearOverviewContainer
+  GearOverviewContainer,
+  GearRow,
+  CharacterName
 } from './character-detail.styles';
 import { getCharacterDetails } from '../../redux/character-detail/character-detail.actions';
 
@@ -22,15 +26,54 @@ const CharacterDetail = ({
     })();
   }, [ID, getCharacterDetails]);
 
+  const renderGear = column => {
+    const { GearSet } = characterDetails.Character;
+
+    if (column === 'left') {
+      return Object.keys(GearSet.Gear).map((gear, i) => {
+        if (i <= 6) {
+          return (
+            <Gear
+              key={GearSet.Gear[gear].Item.ID}
+              item={GearSet.Gear[gear].Item}
+              gearLeft
+            />
+          );
+        }
+      });
+    }
+
+    if (column === 'right') {
+      return Object.keys(GearSet.Gear).map((gear, i) => {
+        if (i > 6) {
+          return (
+            <Gear
+              key={GearSet.Gear[gear].Item.ID}
+              item={GearSet.Gear[gear].Item}
+              gearLeft
+            />
+          );
+        }
+      });
+    }
+  };
+
   if (characterDetails.Character) {
-    const { Portrait, Name } = characterDetails.Character;
+    const { Portrait, Name, GearSet } = characterDetails.Character;
 
     return (
       <CharacterDetailStyled>
-        {/* ! this is temporary until pagination gets figured out */}
-        <h2 style={{ width: '100%', textAlign: 'center' }}>{Name}</h2>
         <GearOverviewContainer>
-          <PortraitStyled src={Portrait} alt="portrait" />
+          <CharacterName>{Name}</CharacterName>
+          <GearRow className="gear-left" style={{ gridArea: 'gear-left' }}>
+            {renderGear('left')}
+          </GearRow>
+          <PortraitContainer>
+            <PortraitStyled src={Portrait} alt="portrait" />
+          </PortraitContainer>
+          <GearRow className="gear-right" style={{ gridArea: 'gear-right' }}>
+            {renderGear('right')}
+          </GearRow>
         </GearOverviewContainer>
       </CharacterDetailStyled>
     );
