@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 export const ResultItemStyled = styled.li`
   display: flex;
   flex-direction: row;
-  /* display: grid;
-  grid-template-columns: max-content 1fr; */
   border: 1px solid #2544a6;
   border-radius: 5px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
   cursor: pointer;
   text-align: center;
+  max-height: 80px;
 
   &:hover {
     box-shadow: 2px 2px 5px #2544a6;
@@ -18,7 +17,6 @@ export const ResultItemStyled = styled.li`
 `;
 
 export const ResultTextContainer = styled.div`
-  padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;

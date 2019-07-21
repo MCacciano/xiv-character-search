@@ -28,7 +28,7 @@ const ResultItem = ({
 
   return (
     <ResultItemStyled onClick={pushCharacterID}>
-      <img style={{ maxHeight: '76px' }} src={Avatar} alt="Avatar" />
+      <img style={{ maxHeight: '80px' }} src={Avatar} alt="Avatar" />
       <ResultTextContainer>
         <ResultItemLink to="/">{Name}</ResultItemLink>
         <p>{Server}</p>

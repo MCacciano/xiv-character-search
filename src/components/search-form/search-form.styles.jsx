@@ -1,17 +1,15 @@
 import styled from 'styled-components';
 
 export const SearchFormStyled = styled.form`
-  grid-column: 2 / -1;
-  justify-self: flex-start;
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: max-content;
-  justify-items: center;
-  align-items: center;
-  justify-content: center;
+  display: flex;
+  margin: 15px;
+  flex-grow: 1;
 
-  @media screen and (max-width: 580px) {
-    display: flex;
+  @media screen and (max-width: 910px) {
+    flex-grow: 0;
+  }
+
+  @media screen and (max-width: 600px) {
     flex-direction: column-reverse;
   }
 `;

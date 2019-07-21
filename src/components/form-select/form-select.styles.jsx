@@ -33,7 +33,7 @@ export const FormSelectStyled = styled.select`
     }
   }
 
-  @media screen and (max-width: 580px) {
+  @media screen and (max-width: 600px) {
     margin-top: 0.5rem;
   }
 `;

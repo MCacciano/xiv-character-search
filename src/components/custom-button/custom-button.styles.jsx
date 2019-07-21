@@ -37,5 +37,6 @@ export const CustomButtonStyled = styled.button`
 
   @media screen and (max-width: 580px) {
     margin-top: 0.5rem;
+    margin-left: 0;
   }
 `;

@@ -18,8 +18,6 @@ const ResultListWithSpinner = WithSpinner(ResultList);
 
 class App extends React.Component {
   render() {
-    console.log('state', this.state);
-    console.log('props', this.props);
     return (
       <Fragment>
         <Header title="FFXIV Character Search" />

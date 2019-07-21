@@ -2,15 +2,12 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const HeaderStyled = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  align-items: center;
-  height: 7vh;
-  justify-content: center;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
   align-items: center;
   white-space: nowrap;
   border-bottom: 1px solid #2544a6;
-  /* background-color: #2544a6; */
 `;
 
 export const BrandStyled = styled(Link)`
@@ -20,4 +17,5 @@ export const BrandStyled = styled(Link)`
   justify-self: center;
   color: #2544a6;
   text-decoration: none;
+  margin: 0 25px;
 `;
