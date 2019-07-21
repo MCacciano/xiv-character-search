@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -15,56 +15,59 @@ import CustomButton from '../custom-button/custom-button.component';
 
 import { SearchFormStyled } from './search-form.styles';
 
-class SearchForm extends Component {
-  state = {
+const SearchForm = ({
+  getServerList,
+  history,
+  isLoading,
+  searchCharacter,
+  servers
+}) => {
+  const [formState, setFormState] = useState({
     characterName: '',
     characterServer: ''
-  };
+  });
 
-  componentDidMount() {
-    // populate the server options from api
-    this.props.getServerList();
-  }
+  useEffect(() => {
+    getServerList();
+  }, [getServerList]);
 
-  onFormSubmit = e => {
+  const onFormSubmit = e => {
     e.preventDefault();
-    this.props.history.push('/');
+    history.push('/');
 
-    const { characterName, characterServer } = this.state;
+    const { characterName, characterServer } = formState;
 
-    this.props.isLoading(true);
-    this.props.searchCharacter(characterName, characterServer);
+    isLoading(true);
+    searchCharacter(characterName, characterServer);
   };
 
-  onInputChange = e => {
+  const onInputChange = e => {
     const { name, value } = e.target;
-    this.setState({ [name]: value });
+    setFormState({ [name]: value });
   };
 
-  render() {
-    return (
-      <SearchFormStyled onSubmit={this.onFormSubmit}>
-        <FormSelect
-          name="characterServer"
-          onChange={this.onInputChange}
-          options={this.props.servers}
-          useOptions
+  return (
+    <SearchFormStyled onSubmit={onFormSubmit}>
+      <FormSelect
+        name="characterServer"
+        onChange={onInputChange}
+        options={servers}
+        useOptions
+      />
+      <SearchContainer>
+        <FormInput
+          type="text"
+          name="characterName"
+          placeholder="Character Name (ex: Cloud)"
+          onInputChange={onInputChange}
         />
-        <SearchContainer>
-          <FormInput
-            type="text"
-            name="characterName"
-            placeholder="Character Name (ex: Cloud)"
-            onInputChange={this.onInputChange}
-          />
-          <CustomButton type="submit" isSearchButton>
-            Search
-          </CustomButton>
-        </SearchContainer>
-      </SearchFormStyled>
-    );
-  }
-}
+        <CustomButton type="submit" isSearchButton>
+          Search
+        </CustomButton>
+      </SearchContainer>
+    </SearchFormStyled>
+  );
+};
 
 const mapStateToProps = ({ search: { servers } }) => ({
   servers

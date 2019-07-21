@@ -1,8 +1,5 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-
-import { getCharacterDetails } from '../../redux/character-detail/character-detail.actions';
 
 import {
   ResultItemStyled,
@@ -10,16 +7,9 @@ import {
   ResultItemLink
 } from './result-item.styles';
 
-const ResultItem = ({
-  character,
-  getCharacterDetails,
-  characterDetails,
-  history
-}) => {
+const ResultItem = ({ character, history }) => {
   const { Avatar, ID, Name, Server } = character;
   const pushCharacterID = async () => {
-    // await getCharacterDetails(ID);
-
     history.push({
       pathname: `/character/${ID}`,
       state: { ID }
@@ -37,13 +27,4 @@ const ResultItem = ({
   );
 };
 
-const mapDispatchToProps = dispatch => ({
-  getCharacterDetails: id => dispatch(getCharacterDetails(id))
-});
-
-export default withRouter(
-  connect(
-    null,
-    mapDispatchToProps
-  )(ResultItem)
-);
+export default withRouter(ResultItem);

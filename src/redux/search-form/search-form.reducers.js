@@ -11,7 +11,6 @@ const initialState = {
 const searchFormReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case SEARCH_CHARACTER:
-      console.log(payload);
       return {
         ...state,
         characters: payload.searchResults.Results,

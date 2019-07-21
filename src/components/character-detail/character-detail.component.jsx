@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import Gear from '../gear-item/gear-item.component';
@@ -28,11 +28,12 @@ const CharacterDetail = ({
 
   const renderGear = column => {
     const { GearSet } = characterDetails.Character;
+    const gearArr = [];
 
     if (column === 'left') {
-      return Object.keys(GearSet.Gear).map((gear, i) => {
+      Object.keys(GearSet.Gear).forEach((gear, i) => {
         if (i <= 6) {
-          return (
+          gearArr.push(
             <Gear
               key={GearSet.Gear[gear].Item.ID}
               item={GearSet.Gear[gear].Item}
@@ -44,9 +45,9 @@ const CharacterDetail = ({
     }
 
     if (column === 'right') {
-      return Object.keys(GearSet.Gear).map((gear, i) => {
+      Object.keys(GearSet.Gear).forEach((gear, i) => {
         if (i > 6) {
-          return (
+          gearArr.push(
             <Gear
               key={GearSet.Gear[gear].Item.ID}
               item={GearSet.Gear[gear].Item}
@@ -56,10 +57,12 @@ const CharacterDetail = ({
         }
       });
     }
+
+    return gearArr;
   };
 
   if (characterDetails.Character) {
-    const { Portrait, Name, GearSet } = characterDetails.Character;
+    const { Portrait, Name } = characterDetails.Character;
 
     return (
       <CharacterDetailStyled>

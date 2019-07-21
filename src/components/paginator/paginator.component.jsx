@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon as FA } from '@fortawesome/react-fontawesome';
 
@@ -9,67 +9,44 @@ import {
 
 import { PaginatorStyled, PageStyled } from './paginator.styles';
 
-class Paginator extends Component {
-  state = {
-    paginationData: this.props.paginationData,
-    activePage: 1
-  };
+const Paginator = props => {
+  useEffect(() => {
+    props.paginationData && buildPagination();
+  });
 
-  componentDidMount() {
-    this.props.paginationData && this.buildPagination();
-  }
-
-  componentWillUnmount() {}
-
-  buildPagination() {
-    const {
-      Page,
-      PageNext,
-      PagePrev,
-      PageTotal,
-      Results,
-      ResultsPerPage,
-      ResultsTotal
-    } = this.props.paginationData;
+  const buildPagination = () => {
+    const { Page, PageTotal } = props.paginationData;
 
     let pagesArr = [];
 
     if (PageTotal > 1) {
       for (let i = 1; i < PageTotal + 1; i++) {
         pagesArr.push(
-          <PageStyled
-            key={i}
-            page={i}
-            onClick={this.setActivePage}
-            isActive={i === Page ? true : false}
-          >
+          <PageStyled key={i} page={i} isActive={i === Page ? true : false}>
             {i}
           </PageStyled>
         );
       }
     } else {
       pagesArr.push(
-        <PageStyled key={1} page={1} onClick={this.setActivePage} isActive>
+        <PageStyled key={1} page={1} isActive>
           1
         </PageStyled>
       );
     }
-
     return pagesArr;
-  }
-
-  getPage = page => {
-    this.props.isLoading(true);
-
-    this.props.searchCharacter(this.props.characterName, '', page);
   };
 
-  render() {
-    const { Page, PageTotal, PagePrev, PageNext } = this.props.paginationData;
-    console.log(Page);
+  const getPage = page => {
+    props.isLoading(true);
+    props.searchCharacter(props.characterName, '', page);
+  };
+
+  const render = () => {
+    const { Page, PageTotal, PagePrev, PageNext } = props.paginationData;
     return (
       <PaginatorStyled>
-        <PageStyled onClick={() => this.getPage(1)} page={1} endPage>
+        <PageStyled onClick={() => getPage(1)} page={1} endPage>
           1
         </PageStyled>
         <FA
@@ -80,7 +57,7 @@ class Paginator extends Component {
             margin: '0 .5rem',
             color: '#3a4fad'
           }}
-          onClick={PagePrev ? () => this.getPage(PagePrev) : null}
+          onClick={PagePrev ? () => getPage(PagePrev) : null}
         />
         {PagePrev ? <PageStyled page={PagePrev}>{PagePrev}</PageStyled> : null}
         <PageStyled page={Page} isActive>
@@ -95,11 +72,11 @@ class Paginator extends Component {
             margin: '0 .5rem',
             color: '#3a4fad'
           }}
-          onClick={PageNext ? () => this.getPage(PageNext) : null}
+          onClick={PageNext ? () => getPage(PageNext) : null}
         />
         {PageTotal > 1 && (
           <PageStyled
-            onClick={() => this.getPage(PageTotal)}
+            onClick={() => getPage(PageTotal)}
             page={PageTotal}
             endPage
           >
@@ -108,8 +85,10 @@ class Paginator extends Component {
         )}
       </PaginatorStyled>
     );
-  }
-}
+  };
+
+  return render();
+};
 
 const mapDispatchToProps = dispatch => ({
   searchCharacter: (name, server, page) =>

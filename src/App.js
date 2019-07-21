@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
@@ -16,46 +16,47 @@ library.add(faAngleRight, faAngleLeft);
 
 const ResultListWithSpinner = WithSpinner(ResultList);
 
-class App extends React.Component {
-  render() {
-    return (
-      <Fragment>
-        <Header title="FFXIV Character Search" />
-        <Switch>
-          <Route
-            path="/character/:id"
-            render={props => (
-              <CharacterDetail
-                characterDetails={this.props.characterDetails}
-                {...props}
+const App = ({
+  characterDetails,
+  characters,
+  characterName,
+  pagination,
+  loading
+}) => {
+  return (
+    <Fragment>
+      <Header title="FFXIV Character Search" />
+      <Switch>
+        <Route
+          path="/character/:id"
+          render={props => (
+            <CharacterDetail characterDetails={characterDetails} {...props} />
+          )}
+        />
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <Layout>
+              <ResultListWithSpinner
+                characters={characters}
+                loading={loading}
+                characterDetails={characterDetails}
               />
-            )}
-          />
-          <Route
-            exact
-            path="/"
-            render={() => (
-              <Layout>
-                <ResultListWithSpinner
-                  characters={this.props.characters}
-                  loading={this.props.loading}
-                  characterDetails={this.props.characterDetails}
+              {pagination ? (
+                <Paginator
+                  characterName={characterName}
+                  loading={loading}
+                  paginationData={pagination}
                 />
-                {this.props.pagination ? (
-                  <Paginator
-                    characterName={this.props.characterName}
-                    loading={this.props.loading}
-                    paginationData={this.props.pagination}
-                  />
-                ) : null}
-              </Layout>
-            )}
-          />
-        </Switch>
-      </Fragment>
-    );
-  }
-}
+              ) : null}
+            </Layout>
+          )}
+        />
+      </Switch>
+    </Fragment>
+  );
+};
 
 const mapStateToProps = ({
   search: { loading, servers, characters, pagination, characterName },
