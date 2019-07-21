@@ -6,8 +6,6 @@ export const FormSelectStyled = styled.select`
   min-width: 100px;
   font-size: 1rem;
   color: #777777;
-  /* border: none; */
-  /* border-bottom: 1px solid rgba(37, 68, 166, 0.4); */
 
   cursor: pointer;
 

@@ -26,6 +26,38 @@ const CharacterDetail = ({
     })();
   }, [ID, getCharacterDetails]);
 
+  const renderGear = column => {
+    const { GearSet } = characterDetails.Character;
+
+    if (column === 'left') {
+      return Object.keys(GearSet.Gear).map((gear, i) => {
+        if (i <= 6) {
+          return (
+            <Gear
+              key={GearSet.Gear[gear].Item.ID}
+              item={GearSet.Gear[gear].Item}
+              gearLeft
+            />
+          );
+        }
+      });
+    }
+
+    if (column === 'right') {
+      return Object.keys(GearSet.Gear).map((gear, i) => {
+        if (i > 6) {
+          return (
+            <Gear
+              key={GearSet.Gear[gear].Item.ID}
+              item={GearSet.Gear[gear].Item}
+              gearLeft
+            />
+          );
+        }
+      });
+    }
+  };
+
   if (characterDetails.Character) {
     const { Portrait, Name, GearSet } = characterDetails.Character;
 
@@ -34,33 +66,13 @@ const CharacterDetail = ({
         <GearOverviewContainer>
           <CharacterName>{Name}</CharacterName>
           <GearRow className="gear-left" style={{ gridArea: 'gear-left' }}>
-            {Object.keys(GearSet.Gear).map((gear, i) => {
-              if (i <= 6) {
-                return (
-                  <Gear
-                    key={GearSet.Gear[gear].Item.ID}
-                    item={GearSet.Gear[gear].Item}
-                    gearLeft
-                  />
-                );
-              }
-            })}
+            {renderGear('left')}
           </GearRow>
           <PortraitContainer>
             <PortraitStyled src={Portrait} alt="portrait" />
           </PortraitContainer>
           <GearRow className="gear-right" style={{ gridArea: 'gear-right' }}>
-            {Object.keys(GearSet.Gear).map((gear, i) => {
-              if (i > 6) {
-                return (
-                  <Gear
-                    key={GearSet.Gear[gear].Item.ID}
-                    item={GearSet.Gear[gear].Item}
-                    gearLeft
-                  />
-                );
-              }
-            })}
+            {renderGear('right')}
           </GearRow>
         </GearOverviewContainer>
       </CharacterDetailStyled>
