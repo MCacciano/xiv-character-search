@@ -6,9 +6,9 @@ export const ResultListStyled = styled.ul`
   grid-template-columns: repeat(auto-fit, 225px);
   justify-content: space-around;
   grid-gap: 5px;
-  margin: 0 50px;
-  height: 100%;
-  overflow-y: auto;
+  /* margin: 0 50px; */
+  /* height: 100%; */
+  /* overflow-y: auto; */
   list-style: none;
 
   @media screen and (max-width: 910px) {

@@ -15,14 +15,14 @@ const ActiveEndPage = css`
 
 const InnerPageCss = css`
   border: thin solid #000000;
-  padding: 5px 15px;
+  padding: 5px 10px;
 `;
 
 const ActivePageCss = css`
   color: #ffffff;
   background: #3a4fad;
   transform: scale(1);
-  padding: 10px 15px;
+  padding: 6px 1px;
 `;
 
 const getPageStyles = ({ endPage, isActive }) => {

@@ -15,14 +15,14 @@ const ActiveEndPage = css`
 
 const InnerPageCss = css`
   border: thin solid #000000;
-  padding: 5px 15px;
+  padding: 4px 8px;
 `;
 
 const ActivePageCss = css`
   color: #ffffff;
   background: #3a4fad;
   transform: scale(1);
-  padding: 10px 15px;
+  padding: 6px 11px;
 `;
 
 const getPageStyles = ({ endPage, isActive }) => {
@@ -41,10 +41,7 @@ export const PaginatorStyled = styled.ul`
   justify-content: center;
   align-items: center;
   list-style: none;
-  width: 90%;
   margin: 10px 0;
-  position: absolute;
-  bottom: 0;
 `;
 
 export const PageStyled = styled.li`

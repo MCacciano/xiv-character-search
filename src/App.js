@@ -15,6 +15,7 @@ import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 library.add(faAngleRight, faAngleLeft);
 
 const ResultListWithSpinner = WithSpinner(ResultList);
+const CharacterDetailWithSpinner = WithSpinner(CharacterDetail);
 
 const App = ({
   characterDetails,
@@ -30,7 +31,11 @@ const App = ({
         <Route
           path="/character/:id"
           render={props => (
-            <CharacterDetail characterDetails={characterDetails} {...props} />
+            <CharacterDetailWithSpinner
+              loading={loading}
+              characterDetails={characterDetails}
+              {...props}
+            />
           )}
         />
         <Route

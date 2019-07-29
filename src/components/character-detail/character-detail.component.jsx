@@ -18,13 +18,12 @@ const CharacterDetail = ({
   characterDetails,
   location: { state }
 }) => {
-  const { ID } = state;
+  const tester = () => {
+    const { ID } = state;
+    getCharacterDetails(ID);
+  };
 
-  useEffect(() => {
-    (async () => {
-      await getCharacterDetails(ID);
-    })();
-  }, [ID, getCharacterDetails]);
+  useEffect(tester, );
 
   const renderGear = column => {
     const { GearSet } = characterDetails.Character;
